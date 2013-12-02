@@ -29,16 +29,19 @@ $(function () {
         var affixer = $('#affixTarget').affix({
           offset: $('#affixTarget ul').position()
         })
+
+        $('#affixTarget').on('unaffixed.bs.affix', function(e){
+          ok(true, 'unaffixed event triggered') 
+        })
         
         $('#affixTarget').on('affixed.bs.affix', function(e){
           ok(true, 'affixed event triggered')
+          start()
+          $('#affixTarget').remove()
+          $('#affixAfter').remove()
         })
         
-        $('#affixTarget').on('unaffixed.bs.affix', function(e){
-          ok(true, 'unaffixed event triggered')
-        })
         expect(2)
-
         $('html,body').animate({
           scrollTop: $(window).scrollTop() + 5000
         },10)
@@ -46,13 +49,5 @@ $(function () {
         $('html,body').animate({
           scrollTop: $(window).scrollTop() - 5000
         },10)
-
-        
-        setTimeout(function(){  
-          start()
-          $('#affixTarget').remove()
-          $('#affixAfter').remove()
-        },70)
-        
       })
 })
